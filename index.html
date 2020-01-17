@@ -155,10 +155,10 @@ xhr.addEventListener("readystatechange", function () {
 
 xhr.open("GET", "https://resume-builder-v1.herokuapp.com/api/resumes", true);
 xhr.setRequestHeader("Authorization", "Token 44163c7b2325553ed74edbd7e9077fae12c25db9");
-xhr.setRequestHeader("Accept", "*/*");
+xhr.setRequestHeader("Accept", "application/json");
 xhr.setRequestHeader("Cache-Control", "no-cache");
-xhr.setRequestHeader("Access-Control-Allow-Credentials", "true")
-xhr.setRequestHeader("Access-Control-Allow-Origin", "https://udit107710.github.io/")
+xhr.setRequestHeader("Access-Control-Allow-Credentials", "true");
+xhr.setRequestHeader("Access-Control-Allow-Origin", "https://udit107710.github.io");
 xhr.send(data);
 
 
