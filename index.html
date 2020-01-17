@@ -157,6 +157,7 @@ xhr.open("GET", "https://resume-builder-v1.herokuapp.com/api/resumes");
 xhr.setRequestHeader("Authorization", "Token 44163c7b2325553ed74edbd7e9077fae12c25db9");
 xhr.setRequestHeader("Accept", "*/*");
 xhr.setRequestHeader("Cache-Control", "no-cache");
+xhr.setRequestHeader("Access-Control-Allow-Credentials", "true")
 
 xhr.send(data);
 
