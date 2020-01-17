@@ -142,24 +142,30 @@
     $(document).ready(function(){
       $('#lightgallery').lightGallery();
 
-      var data = null;
 
-var xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
+    async function postData(url = '') {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      'Authorization': 'Token 44163c7b2325553ed74edbd7e9077fae12c25db9'
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *client
+  });
+  return await response.json(); // parses JSON response into native JavaScript objects
+}
 
-xhr.addEventListener("readystatechange", function () {
-  if (this.readyState === 4) {
-    console.log(this.responseText);
-  }
-});
+postData('https://resume-builder-v1.herokuapp.com/api/resumes')
+  .then((data) => {
+    console.log(data); // JSON data parsed by `response.json()` call
+  });
 
-xhr.open("GET", "https://resume-builder-v1.herokuapp.com/api/resumes", true);
-xhr.setRequestHeader("Authorization", "Token 44163c7b2325553ed74edbd7e9077fae12c25db9");
-xhr.setRequestHeader("Accept", "application/json");
-xhr.setRequestHeader("Cache-Control", "no-cache");
-xhr.setRequestHeader("Access-Control-Allow-Credentials", "true");
-xhr.setRequestHeader("Access-Control-Allow-Origin", "https://udit107710.github.io");
-xhr.send(data);
+
 
 
     var m = []
