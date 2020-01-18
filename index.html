@@ -165,7 +165,7 @@ getData('https://resume-builder-v1.herokuapp.com/api/resumes')
     mode: 'cors', // no-cors, *cors, same-origin
     cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
     // credentials: 'include', // include, *same-origin, omit
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Token 476fffa8f273a6243924c7d3af30e42c5843ad92' },
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Token 44163c7b2325553ed74edbd7e9077fae12c25db9' },
     redirect: 'follow', // manual, *follow, error
     referrerPolicy: 'no-referrer', // no-referrer, *client
   });
@@ -178,7 +178,7 @@ getData('https://resume-builder-v1.herokuapp.com/api/resumes')
     email = document.getElementById("form_email").value;
     template = document.getElementById("form_option").text;
     data = {"name": name, "email": email, "template": template};
-    postData("http://127.0.0.1:8000/api/send-resume/", data=data)
+    postData("https://resume-builder-v1.herokuapp.com/api/send-resume/", data=data)
     .then((result)=>{
       var result = JSON.parse(result);
       window.location.replace(result["resume"]);
