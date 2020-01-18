@@ -49,7 +49,7 @@
         <div class="row align-items-center">
           
           <div class="col-6 col-xl-2" data-aos="fade-down">
-            <h1 class="mb-0"><a href="index.html" class="text-black h2 mb-0">Resumes  </a></h1>
+            <h1 class="mb-0"><a href="index.html" class="text-black h2 mb-0">Resumes</a></h1>
           </div>
 
           
@@ -57,51 +57,29 @@
       </div>
       
     </header>
-
-     <embed src="C:\Users\Udit\Downloads\Resumess\The-Modern-Minimalist-Resume\The-Modern-Minimalist-Resume-resume.pdf" type="application/pdf" width="100%" height="600px" />
-
-
     <div class="container-fluid" data-aos="fade" data-aos-delay="500" id="someId">
     <div class="swiper-container images-carousel">
-        <div id="corousel-wrapper">
-        </div>
-
+        
         <div class="swiper-wrapper">
-            <!-- <div class="swiper-slide" >
-              <div class="image-wrap">
-                <div class="image-info">
-                  <h2 class="mb-3">Resume</h2>
-                  <a href="single.html" class="btn btn-outline-white py-2 px-4">Use this</a>
-                </div>
-                 <embed src="https://resume-templates-intern.s3.ap-south-1.amazonaws.com/Resumes/The-Modern-Minimalist-Resume-resume.pdf" type="application/pdf" width="100%" height="100%%" />
-              </div>
-            </div>
-            <div class="swiper-slide" >
-              <div class="image-wrap">
-                <div class="image-info">
-                  <h2 class="mb-3">Resume 2</h2>
-                  <a href="single.html" class="btn btn-outline-white py-2 px-4">Use this</a>
-                </div>
-                 <embed src="https://resume-templates-intern.s3.ap-south-1.amazonaws.com/Resumes/Minimalisticlean-Resume-resume.pdf" type="application/pdf" width="100%" height="100%%" />
-              </div>
-            </div>
-            <div class="swiper-slide" >
-              <div class="image-wrap">
-                <div class="image-info">
-                  <h2 class="mb-3">Resume 3</h2>
-                  <a href="single.html" class="btn btn-outline-white py-2 px-4">Use this</a>
-                </div>
-                 <embed src="https://resume-templates-intern.s3.ap-south-1.amazonaws.com/Resumes/resume.pdf" type="application/pdf" width="100%" height="100%%" />
-              </div>
-            </div> -->
+            
         </div>
-
+        
         <div class="swiper-pagination"></div>
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
         <div class="swiper-scrollbar"></div>
+
     </div>
   </div>
+  <div class="main-agileinfo" id="resume-form">
+			<div class="agileits-top">
+					<input class="text" type="text" name="name" placeholder="Name" required="true" id="form_name">
+					<input class="text email" type="email" name="email" placeholder="Email" required="true" id="form_email">
+          <select class="text" name="template" id="template">
+          </select>
+					<button onclick= "onClick()" value="Submit" class="btn btn-primary py-2 px-4">
+			</div>
+      </div>
 
   <div class="footer py-4">
     <div class="container-fluid">
@@ -112,11 +90,6 @@
       </p>
     </div>
   </div>
-
-    
-
-    
-    
   </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
@@ -137,13 +110,14 @@
   <script src="js/jquery.mousewheel.min.js"></script>
 
   <script src="js/main.js"></script>
+  <script src="js/download.js"></script>
   
   <script>
     $(document).ready(function(){
       $('#lightgallery').lightGallery();
       var m = []
 
-    async function postData(url = '') {
+    async function getData(url = '') {
   // Default options are marked with *
   const response = await fetch(url, {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -157,20 +131,62 @@
   return await response.json(); // parses JSON response into native JavaScript objects
 }
 
-postData('https://resume-builder-v1.herokuapp.com/api/resumes')
+getData('https://resume-builder-v1.herokuapp.com/api/resumes')
   .then((data) => {
     data = JSON.parse(data)
     m = data["files"]
     console.log(data.files); // JSON data parsed by `response.json()` call
-
+    var x = document.getElementById("template");
     for(var i=0 ; i< m.length ; i++) {
-    $('<div class="swiper-slide"><div class="image-wrap"><div class="image-info"><h2 class="mb-3">Resume</h2><a href="single.html" class="btn btn-outline-white py-2 px-4">Use this</a></div><embed src='+ m[i] +' type="application/pdf" width="100%" height="100%%" /></div></div>').appendTo('.swiper-wrapper');
-    console.log(m[i])
+    $('<div class="swiper-slide">'+
+        '<div class="image-wrap">'+
+            '<div class="image-info">'+
+              '<button href="#resume-form" class="btn btn-outline-white py-2 px-4">'+'Resume '+ i + '</a>'+
+            '</div>'+
+              '<embed src='+ m[i] +' type="application/pdf" width="100%" height="100%%" />'+
+          '</div>'+
+        '</div>').appendTo('.swiper-wrapper');
+    console.log(m[i]);
+    var option = document.createElement("option");
+    option.text = m[i].split("/")[4];
+    option.id = "form_option";
+    x.add(option);
   }
   $('#someId').carousel();
   });
 
   });
+
+  async function postData(url, data){
+
+    const response = await fetch(url, {
+    body: JSON.stringify(data),
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    // credentials: 'include', // include, *same-origin, omit
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Token 476fffa8f273a6243924c7d3af30e42c5843ad92' },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *client
+  });
+  return await response.json();
+
+  }
+
+  function onClick(){
+    name = document.getElementById("form_name").value;
+    email = document.getElementById("form_email").value;
+    template = document.getElementById("form_option").text;
+    data = {"name": name, "email": email, "template": template};
+    postData("http://127.0.0.1:8000/api/send-resume/", data=data)
+    .then((result)=>{
+      var result = JSON.parse(result);
+      window.location.replace(result["resume"]);
+    });
+  }
   </script>
+
+
+
   </body>
 </html>
